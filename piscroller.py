@@ -27,7 +27,7 @@ import sys
 import signal
 
 from docopt import docopt
-from pijobs.ScrollJob import ScrollJob
+from pijobs.scrolljob import ScrollJob
 
 class JobCommand:
     def __init__(self, job, opts):
