@@ -34,6 +34,7 @@ class Queue(Resource):
         parser.add_argument('rotate', type=int, help='Rotate 180 degrees')
         parser.add_argument('sleep', type=float, help='Seconds to sleep after job')
         parser.add_argument('interval', type=float, help='Seconds to sleep between each iteration')
+        parser.add_argument('keep', type=bool, help='Add job to end of queue after run.')
         args = parser.parse_args()
 
         job = piqueue.Job(job_name, clean_dict(args))
@@ -44,16 +45,23 @@ class Queue(Resource):
 
 class QueueList(Resource):
     def get(self):
-        queue = session.query(piqueue.Job).order_by(piqueue.Job.id)
+        queue = session.query(piqueue.Job).order_by(piqueue.Job.date_created)
         return job_schemas.jsonify(queue)
 
-    def delete(self):
-        pass
-        # TODO: delete...
+class Job(Resource):
+    def delete(self, job_id):
+        job = session.query(piqueue.Job).filter(piqueue.Job.id == job_id).first()
+        if job is not None:
+            session.delete(job)
+            session.commit()
+            return '', 200
+        else:
+            return '', 404
 
 
 api.add_resource(Queue, '/queue/<string:job_name>')
 api.add_resource(QueueList, '/queue')
+api.add_resource(Job, '/job/<int:job_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

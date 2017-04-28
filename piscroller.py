@@ -3,18 +3,18 @@
 """piscroller.py
 
 Usage:
-  scroller.py [--brightness=<b>] [--rotate] [--sleep=<s>] [--interval=<s>] [--loop] [--upper] <message>
-  scroller.py (-h | --help)
-  scroller.py --version
+  piscroller.py [--brightness=<b>] [--interval=<s>] [--sleep=<s>] [--loop] [--rotate] [--upper] <message>
+  piscroller.py (-h | --help)
+  piscroller.py --version
 
 Options:
   -h --help         Show this screen.
   --version         Show version
-  --rotate          Rotate 180 degrees
   --brightness=<b>  Brightness level 1-255 [default: 2]
   --interval=<s>    Seconds between each time scroll moves [default: 0.1]
   --sleep=<s>       Seconds to pause after scrolling message [default: 0]
   --loop            Loop message forever.
+  --rotate          Rotate 180 degrees
   --upper           Make text upper case
 
 """
@@ -44,7 +44,6 @@ class JobCommand:
             'interval': float(opts['--interval']),
             'message': opts['<message>'],
         }
-
         return options
 
     def execute(self):
@@ -60,6 +59,6 @@ class JobCommand:
         sys.exit(-1)
 
 if __name__ == '__main__':
-    opts = docopt(__doc__, version='Scroller v1.1')
+    opts = docopt(__doc__, version='PiScroller v1.1')
     JobCommand(ScrollJob, opts).execute()
 

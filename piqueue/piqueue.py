@@ -1,5 +1,6 @@
 import json
 import datetime
+import importlib
 import sqlalchemy
 from sqlalchemy.types import TypeDecorator
 from sqlalchemy import Column, Integer, String, Text, DateTime
@@ -39,6 +40,17 @@ class Job(Base):
     def __init__(self, job_name, options):
         self.job_name = job_name
         self.options = options
+
+    def module_name(self):
+        return "pijobs.%sjob" % (job.job_name)
+
+    def class_name(self):
+        return "%sJob" % (self.job_name.capitalize())
+
+    def job_instance(self):
+        module = importlib.import_module(self.module_name())
+        klass = getattr(module, self.class_name())
+        return klass(self.options)
 
     def __repr__(self):
         return "<Job(id='%r', job_name='%r'>" % (self.id, self.job_name)
