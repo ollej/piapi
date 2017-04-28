@@ -49,8 +49,10 @@ class PiDaemon():
                 time.sleep(self.options['wait'])
 
     def run_job(self, job):
-        instance = job.job_instance(self.options)
-        instance.run()
+        self.running = job.job_instance(self.options)
+        self.running.run()
+        self.running.cleanup()
+        self.running = None
 
     def queue(self):
         return self.session.query(piqueue.Job).order_by(piqueue.Job.date_created)
@@ -72,6 +74,8 @@ class PiDaemon():
         signal.signal(signal.SIGTERM, self.cleanup)
 
     def cleanup(self, signum, frame):
+        if self.running is not None:
+            self.running.cleanup()
         sys.exit(-1)
 
 
