@@ -11,7 +11,6 @@ class ScrollJob(ScrollphatJob):
         return opts
 
     def init(self):
-        self.set_rotate()
         self.set_brightness()
         scrollphat.write_string(self.message(), 11)
 
@@ -38,8 +37,4 @@ class ScrollJob(ScrollphatJob):
     def scroll(self):
         scrollphat.scroll()
         self.sleep_interval()
-
-    def set_rotate(self):
-        if self.options['rotate'] is not None:
-            scrollphat.set_rotate(self.options['rotate'])
 

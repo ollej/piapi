@@ -20,10 +20,11 @@ class GraphJob(ScrollphatJob):
         graph = self.split_graph(graph_string)
         scrollphat.graph(graph)
         if len(graph) > self.MATRIX_WIDTH:
-            self.scroll_graph()
+            self.scroll_graph(len(graph))
+        self.sleep()
 
-    def scroll_graph(self):
-        for i in range(len(graph)):
+    def scroll_graph(self, length):
+        for i in range(length):
             scrollphat.scroll()
             time.sleep_interval()
 
