@@ -46,6 +46,7 @@ class PiDaemon():
                 if job.options['keep'] == True:
                     self.add_job(job)
                 self.delete_job(job)
+                job.sleep()
             else:
                 time.sleep(self.options['wait'])
 
