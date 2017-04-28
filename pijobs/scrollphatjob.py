@@ -1,4 +1,6 @@
+import time
 import scrollphat
+from pijobs.queuejob import QueueJob
 
 class ScrollphatJob(QueueJob):
     def init(self):
