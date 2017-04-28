@@ -3,7 +3,7 @@ import scrollphat
 from pijobs.scrollphatjob import ScrollphatJob
 
 class GraphJob(ScrollphatJob):
-    self.MATRIX_WIDTH = 11
+    MATRIX_WIDTH = 11
 
     def run(self):
         if isinstance(self.options['graph'], list):
