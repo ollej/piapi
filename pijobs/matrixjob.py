@@ -1,4 +1,5 @@
-import scrollphatjob
+import scrollphat
+from pijobs.scrollphatjob import ScrollphatJob
 
 # TODO: Create super class
 # TODO: Have default values for sleep/interval/brightness

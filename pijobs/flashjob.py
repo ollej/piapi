@@ -1,4 +1,5 @@
-import scrollphatjob
+import scrollphat
+from pijobs.scrollphatjob import ScrollphatJob
 
 class FlashJob(ScrollphatJob):
     def run(self):

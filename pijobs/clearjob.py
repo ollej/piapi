@@ -1,4 +1,5 @@
-import scrollphatjob
+import scrollphat
+from pijobs.scrollphatjob import ScrollphatJob
 
 class ClearJob(ScrollphatJob):
     def run(self):
