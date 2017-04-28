@@ -1,21 +1,18 @@
-import time
-import scrollphat
+import scrollphatjob
 
-class ScrollJob:
-    def __init__(self, options):
-        self.options = options
-
+class ScrollJob(ScrollphatJob):
     def init(self):
-        scrollphat.set_brightness(self.options['brightness'])
-        scrollphat.set_rotate(self.options['rotate'])
+        self.set_rotate()
+        self.set_brightness()
+        scrollphat.write_string(self.message(), 11)
 
+    def message(self):
         message = self.options['message'] + '    '
         if self.options['upper'] == True:
             message = message.upper()
-        scrollphat.write_string(message, 11)
+        return message
 
     def run(self):
-        self.init()
         length = scrollphat.buffer_len()
         if self.options['loop'] == True:
             counter = 0
@@ -27,12 +24,13 @@ class ScrollJob:
         else:
             for i in range(length):
                 self.scroll()
-            time.sleep(self.options['sleep'])
+            self.sleep()
 
     def scroll(self):
         scrollphat.scroll()
-        time.sleep(self.options['interval'])
+        self.sleep_interval()
 
-    def cleanup(self):
-        scrollphat.clear()
+    def set_rotate(self):
+        if self.options['rotate'] is not None:
+            scrollphat.set_rotate(self.options['rotate'])
 

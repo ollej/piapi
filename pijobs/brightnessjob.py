@@ -1,8 +1,5 @@
-import scrollphat
+import scrollphatjob
 
-class ClearJob:
-    def __init__(self, options):
-        self.options = options
-
-    def run(self):
-        scrollphat.clear()
+class BrightnessJob(ScrollphatJob):
+    def cleanup(self):
+        pass
