@@ -3,9 +3,17 @@ import datetime
 import sqlalchemy
 from sqlalchemy.types import TypeDecorator
 from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+DATABASE = 'sqlite:///database/queue.db'
+engine = create_engine(DATABASE)
+Session = sessionmaker(bind=engine)
 Base = declarative_base()
+
+def create_database():
+    Base.metadata.create_all(engine)
 
 class TextPickleType(TypeDecorator):
     SIZE = 4096

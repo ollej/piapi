@@ -1,12 +1,8 @@
 from flask import Flask, jsonify
 from flask_restful import Resource, Api, reqparse
 from flask_marshmallow import Marshmallow
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
 
 from piqueue import piqueue
-
-# Setup database: Base.metadata.create_all(engine)
 
 # TODO: Return JSON on failure
 # TODO: Refactor brightness/rotate params
@@ -15,11 +11,8 @@ from piqueue import piqueue
 
 app = Flask(__name__)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/queue.db'
 ma = Marshmallow(app)
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-Session = sessionmaker(bind=engine)
-session = Session()
+session = piqueue.Session()
 
 class JobSchema(ma.Schema):
     class Meta:
