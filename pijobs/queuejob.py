@@ -6,7 +6,7 @@ class QueueJob:
         self.options = self.parse_options(options)
         self.init()
 
-    def dafault_options(self):
+    def default_options(self):
         return {}
 
     def parse_options(self, options):

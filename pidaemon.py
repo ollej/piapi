@@ -24,7 +24,7 @@ from piqueue import piqueue
 
 class PiDaemon():
     def __init__(self, opts):
-        self.options self.parse_options(opts)
+        self.options = self.parse_options(opts)
         self.session = piqueue.Session()
         self.setup_signal_handlers()
 
@@ -44,8 +44,7 @@ class PiDaemon():
                 self.run_job(job)
                 if job.options['keep'] == True:
                     self.add_job(job)
-                else:
-                    self.delete_job(job)
+                self.delete_job(job)
             else:
                 time.sleep(self.options['wait'])
 
