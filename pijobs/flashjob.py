@@ -11,3 +11,9 @@ class FlashJob(ScrollphatJob):
             self.sleep_interval()
         self.sleep()
 
+    def default_options(self):
+        return {
+                'loop': 5,
+                'brightness': 10,
+                'interval': 0.2,
+                }
