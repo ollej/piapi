@@ -7,6 +7,7 @@ from sqlalchemy import Column, Integer, String, Text, DateTime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from collections import defaultdict
 
 DATABASE = 'sqlite:///database/queue.db'
 engine = create_engine(DATABASE)
@@ -27,7 +28,7 @@ class TextPickleType(TypeDecorator):
 
     def process_result_value(self, value, dialect):
         if value is not None:
-            value = json.loads(value)
+            value = defaultdict(lambda: None, json.loads(value))
         return value
 
 class Job(Base):
@@ -42,15 +43,16 @@ class Job(Base):
         self.options = options
 
     def module_name(self):
-        return "pijobs.%sjob" % (job.job_name)
+        return "pijobs.%sjob" % (self.job_name)
 
     def class_name(self):
         return "%sJob" % (self.job_name.capitalize())
 
-    def job_instance(self):
+    def job_instance(self, options):
         module = importlib.import_module(self.module_name())
         klass = getattr(module, self.class_name())
-        return klass(self.options)
+        options.update(self.options)
+        return klass(options)
 
     def __repr__(self):
         return "<Job(id='%r', job_name='%r'>" % (self.id, self.job_name)

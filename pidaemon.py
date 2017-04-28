@@ -1,7 +1,7 @@
 """pidaemon.py
 
 Usage:
-  pidaemon.py [--brightness=<b>] [--sleep=<s>] [--interval=<s>]
+  pidaemon.py [--brightness=<b>] [--sleep=<s>] [--interval=<s>] [--wait=<s>]
   pidaemon.py (-h | --help)
   pidaemon.py --version
 
@@ -11,42 +11,50 @@ Options:
   --brightness=<b>  Default brightness level 1-255 [default: 2]
   --interval=<s>    Default interval in seconds between each frame in jobs [default: 0.1]
   --sleep=<s>       Default number of seconds to pause after each job [default: 0]
+  --wait=<s>        Time between each iteration when polling for job on an empty queue. [default: 5]
 
 """
 
 import sys
 import signal
 from docopt import docopt
+from collections import defaultdict
 
 from piqueue import piqueue
 
 class PiDaemon():
-    def __init__(self):
+    def __init__(self, opts):
+        self.options self.parse_options(opts)
         self.session = piqueue.Session()
         self.setup_signal_handlers()
 
     def parse_options(self, opts):
-        options = {
+        options = defaultdict(lambda: None, {
             'brightness': int(opts['--brightness']),
             'sleep': float(opts['--sleep']),
             'interval': float(opts['--interval']),
-        }
+            'wait': float(opts['--wait']),
+        })
         return options
 
     def run(self):
-        job = self.next_job()
-        self.run_job(job)
-        if job.options['keep'] == True:
-            self.add_job(job)
-        else:
-            self.delete_job(job)
+        while True:
+            job = self.next_job()
+            if job is not None:
+                self.run_job(job)
+                if job.options['keep'] == True:
+                    self.add_job(job)
+                else:
+                    self.delete_job(job)
+            else:
+                time.sleep(self.options['wait'])
 
     def run_job(self, job):
-        instance = job.job_instance()
+        instance = job.job_instance(self.options)
         instance.run()
 
     def queue(self):
-        return session.query(piqueue.Job).order_by(piqueue.Job.date_created)
+        return self.session.query(piqueue.Job).order_by(piqueue.Job.date_created)
 
     def next_job(self):
         return self.queue().first()
@@ -70,4 +78,4 @@ class PiDaemon():
 
 if __name__ == '__main__':
     opts = docopt(__doc__, version='PiDaemon v1.0')
-    PiDaemon().run()
+    PiDaemon(opts).run()

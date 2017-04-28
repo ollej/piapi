@@ -18,3 +18,9 @@ $ python3
 > from piqueue import piqueue
 > piqueue.create_database()
 ```
+
+### Start piapi.py
+
+```
+$ FLASK_APP=piapi.py python3 -m flask run --host=0.0.0.0
+```
