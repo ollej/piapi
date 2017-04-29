@@ -1,6 +1,7 @@
 import scrollphat
 import settings
 import os
+import requests
 
 from pijobs.matrixjob import MatrixJob
 

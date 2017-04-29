@@ -22,7 +22,7 @@ class MatrixJob(ScrollphatJob):
         for i in range(self.MATRIX_ROWS):
             row = []
             for j in range(self.MATRIX_COLS):
-                row.append(matrix_array[counter])
+                row.append(int(matrix_array[counter]))
                 counter += 1
             matrix.append(row)
         return matrix
