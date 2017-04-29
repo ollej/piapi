@@ -1,5 +1,5 @@
 import subprocess
-from pijobs.scrolljob import SrollJob
+from pijobs.scrolljob import ScrollJob
 
 class FortuneJob(ScrollJob):
     def message(self):

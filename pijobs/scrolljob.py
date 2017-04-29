@@ -12,10 +12,17 @@ class ScrollJob(ScrollphatJob):
 
     def init(self):
         self.set_brightness()
-        scrollphat.write_string(self.message(), 11)
+        self.write_message()
+
+    def write_message(self):
+        message = self.parse_message()
+        scrollphat.write_string(message, 11)
 
     def message(self):
-        message = self.options['message'] + '    '
+        return self.options['message']
+
+    def parse_message(self):
+        message = self.message() + '    '
         if self.options['upper'] == True:
             message = message.upper()
         return message

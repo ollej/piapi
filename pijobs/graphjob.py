@@ -26,7 +26,7 @@ class GraphJob(ScrollphatJob):
     def scroll_graph(self, length):
         for i in range(length):
             scrollphat.scroll()
-            time.sleep_interval()
+            self.sleep_interval()
 
     def split_graph(self, graph_string):
         return list(graph_string)
