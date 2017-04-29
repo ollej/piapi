@@ -1,5 +1,7 @@
 import scrollphat
 import settings
+import os
+
 from pijobs.matrixjob import MatrixJob
 
 class MonitJob(MatrixJob):

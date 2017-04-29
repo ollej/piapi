@@ -34,6 +34,7 @@ class Queue(Resource):
         parser.add_argument('interval', type=float, help='Seconds to sleep between each iteration')
         parser.add_argument('keep', type=bool, help='Add job to end of queue after run.')
         parser.add_argument('loop', type=int, help='Loop this many iterations in the job.')
+        parser.add_argument('upper', type=bool, help='Make all letters in message upper case.')
         args = parser.parse_args()
 
         job = piqueue.Job(job_name, clean_dict(args))
