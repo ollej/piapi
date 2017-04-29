@@ -3,6 +3,10 @@ import scrollphat
 from pijobs.queuejob import QueueJob
 
 class ScrollphatJob(QueueJob):
+    MATRIX_LEDS = 55
+    MATRIX_COLS = 11
+    MATRIX_ROWS = 5
+
     def init(self):
         self.set_rotate()
         self.set_brightness()

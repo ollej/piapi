@@ -21,6 +21,7 @@ import time
 from docopt import docopt
 from collections import defaultdict
 
+import settings
 from piqueue import piqueue
 
 class PiDaemon():
@@ -50,7 +51,7 @@ class PiDaemon():
                 time.sleep(self.options['wait'])
 
     def run_job(self, job):
-        self.running = job.job_instance(self.options)
+        self.running = job.job_instance(self.options.copy())
         self.running.run()
         self.running.sleep()
         self.running.cleanup()

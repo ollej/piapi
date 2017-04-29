@@ -3,23 +3,14 @@ import scrollphat
 from pijobs.scrollphatjob import ScrollphatJob
 
 class GraphJob(ScrollphatJob):
-    MATRIX_WIDTH = 11
-
     def run(self):
-        if isinstance(self.options['graph'], list):
-            self.animate(self.options['graph'])
-        else:
-            self.show_graph(self.options['graph'])
-
-    def animate(self, graphs):
-        for graph in graphs:
-            self.show_graph(graph)
+        for graph in self.options['graph']:
+            self.show_graph(list(graph))
             self.sleep_interval()
 
-    def show_graph(self, graph_string):
-        graph = self.split_graph(graph_string)
+    def show_graph(self, graph):
         scrollphat.graph(graph)
-        if len(graph) > self.MATRIX_WIDTH:
+        if len(graph) > self.MATRIX_COLS:
             self.scroll_graph(len(graph))
         self.sleep()
 
@@ -27,7 +18,4 @@ class GraphJob(ScrollphatJob):
         for i in range(length):
             scrollphat.scroll()
             self.sleep_interval()
-
-    def split_graph(self, graph_string):
-        return list(graph_string)
 

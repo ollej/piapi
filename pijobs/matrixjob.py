@@ -1,27 +1,40 @@
 import scrollphat
 from pijobs.scrollphatjob import ScrollphatJob
 
-# TODO: Create super class
-# TODO: Have default values for sleep/interval/brightness
-# TODO: Reshape array/matrix if necessary
-
 class MatrixJob(ScrollphatJob):
-    # matrix is a string with 55 1 or 0, or an array of those strings to animate.
+    # matrix is an array of strings with 55 1 or 0
     def run(self):
-        if isinstance(self.options['matrix'], list):
-            self.animate(self.options['matrix'])
-        else:
-            self.update_matrix(self.options['matrix'])
-        self.sleep()
-
-    def animate(self, matrices):
-        # TODO: set interval for each "frame"
-        # TODO: set brightness for each frame
-        for matrix in matrices:
+        for matrix_string in self.options['matrix']:
+            matrix = self.convert_to_matrix(list(matrix_string))
             self.update_matrix(matrix)
             self.sleep_interval()
 
     def update_matrix(self, matrix):
-        # TODO: Convert matrix
         scrollphat.set_pixels(lambda x, y: matrix[y][x], True)
 
+    def convert_to_matrix(self, arr):
+        """
+        Convert a 1 dimensional array into a 2 dimensional array.
+        """
+        matrix_array = self.limit_array(arr)
+        counter = 0
+        matrix = []
+        for i in range(self.MATRIX_ROWS):
+            row = []
+            for j in range(self.MATRIX_COLS):
+                row.append(matrix_array[counter])
+                counter += 1
+            matrix.append(row)
+        return matrix
+
+    def limit_array(self, arr):
+        """
+        Ensure arr is exactly self.MATRIX_LEDS elements long.
+        Longer array is cut off, shorter is filled with zeroes.
+        """
+        if len(arr) > self.MATRIX_LEDS:
+            return arr[:self.MATRIX_LEDS]
+        elif len(arr) < self.MATRIX_LEDS:
+            return arr + [0] * (self.MATRIX_LEDS - len(arr))
+        else:
+            return arr

@@ -5,8 +5,6 @@ from flask_marshmallow import Marshmallow
 from piqueue import piqueue
 
 # TODO: Return JSON on failure
-# TODO: Refactor brightness/rotate params
-# TODO: One resource class that refers parameter parsing, job creation and job handling
 # TODO: Ensure job_name is a proper job
 
 app = Flask(__name__)
@@ -28,13 +26,14 @@ class Queue(Resource):
     def post(self, job_name):
         parser = reqparse.RequestParser()
         parser.add_argument('message', help='Scroll message')
-        parser.add_argument('matrix', help='Matrix to update all pixels')
-        parser.add_argument('graph', help='Graphs to display')
+        parser.add_argument('matrix', help='Matrix to update all pixels', action='append')
+        parser.add_argument('graph', help='Graphs to display', action='append')
         parser.add_argument('brightness', type=int, help='Set brightness level (0-255)')
         parser.add_argument('rotate', type=int, help='Rotate 180 degrees')
         parser.add_argument('sleep', type=float, help='Seconds to sleep after job')
         parser.add_argument('interval', type=float, help='Seconds to sleep between each iteration')
         parser.add_argument('keep', type=bool, help='Add job to end of queue after run.')
+        parser.add_argument('loop', type=int, help='Loop this many iterations in the job.')
         args = parser.parse_args()
 
         job = piqueue.Job(job_name, clean_dict(args))
