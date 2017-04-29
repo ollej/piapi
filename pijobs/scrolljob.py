@@ -12,6 +12,7 @@ class ScrollJob(ScrollphatJob):
 
     def init(self):
         self.set_brightness()
+        self.set_rotate()
         self.write_message()
 
     def write_message(self):
