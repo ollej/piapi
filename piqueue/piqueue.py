@@ -48,11 +48,10 @@ class Job(Base):
     def class_name(self):
         return "%sJob" % (self.job_name.capitalize())
 
-    def job_instance(self, options):
+    def job_instance(self, default_options):
         module = importlib.import_module(self.module_name())
         klass = getattr(module, self.class_name())
-        options.update(self.options)
-        return klass(options)
+        return klass(self.options.copy(), default_options)
 
     def __repr__(self):
         return "<Job(id='%r', job_name='%r'>" % (self.id, self.job_name)

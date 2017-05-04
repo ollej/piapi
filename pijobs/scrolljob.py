@@ -4,9 +4,9 @@ from pijobs.scrollphatjob import ScrollphatJob
 class ScrollJob(ScrollphatJob):
     def default_options(self):
         opts = {
-                'brightness': 2,
-                'interval': 0.1,
-                'sleep': 1.0,
+            'brightness': 2,
+            'interval': 0.1,
+            'sleep': 1.0,
         }
         return opts
 

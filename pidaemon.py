@@ -26,6 +26,7 @@ from piqueue import piqueue
 
 class PiDaemon():
     def __init__(self, opts):
+        self.running = None
         self.options = self.parse_options(opts)
         self.session = piqueue.Session()
         self.setup_signal_handlers()

@@ -19,9 +19,5 @@ class ScrollphatJob(QueueJob):
         if self.options['rotate'] is not None:
             scrollphat.set_rotate(self.options['rotate'])
 
-    def sleep_interval(self):
-        if self.options['interval'] is not None:
-            time.sleep(float(self.options['interval']))
-
     def cleanup(self):
         scrollphat.clear()
