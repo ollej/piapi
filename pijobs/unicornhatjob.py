@@ -3,10 +3,6 @@ import unicornhat as unicorn
 from pijobs.queuejob import QueueJob
 
 class UnicornhatJob(QueueJob):
-    MATRIX_LEDS = 32
-    MATRIX_COLS = 8
-    MATRIX_ROWS = 4
-
     def init(self):
         unicorn.set_layout(unicorn.AUTO)
         self.set_rotate()
