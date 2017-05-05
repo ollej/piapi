@@ -54,5 +54,5 @@ class Job(Base):
         return klass(self.options.copy(), default_options)
 
     def __repr__(self):
-        return "<Job(id='%r', job_name='%r'>" % (self.id, self.job_name)
+        return "<Job(id='%r', job_name='%s'>" % (self.id, self.job_name)
 
