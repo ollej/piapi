@@ -3,6 +3,9 @@ import unicornhat as unicorn
 from random import randint
 from pijobs.unicornhatjob import UnicornhatJob
 
+# Based on Pimoroni example code:
+# https://github.com/pimoroni/unicorn-hat
+
 class SparklesJob(UnicornhatJob):
     def run(self):
         for loop in range(int(self.options['loop']) * self.rows * self.cols):

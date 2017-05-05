@@ -2,6 +2,9 @@ import math
 import unicornhat as unicorn
 from pijobs.unicornhatjob import UnicornhatJob
 
+# Based on Pimoroni example code:
+# https://github.com/pimoroni/unicorn-hat
+
 class RainbowJob(UnicornhatJob):
     def run(self):
         i = 0.0
