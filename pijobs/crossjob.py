@@ -15,14 +15,15 @@ class CrossJob(UnicornhatJob):
         }
         return opts
 
-    def run(self):
+    def init(self):
+        super(CrossJob, self).init()
         self.points = []
-        for loop in range(int(self.options['loop'])):
-            if len(self.points) < 10 and randint(0, 5) > 1:
-                self.points.append(LightPoint(self.cols, self.rows))
-            self.plot_points()
-            self.update_positions()
-            self.sleep_interval()
+
+    def loop_iteration(self, step):
+        if len(self.points) < 10 and randint(0, 5) > 1:
+            self.points.append(LightPoint(self.cols, self.rows))
+        self.plot_points()
+        self.update_positions()
 
     def update_positions(self):
         for point in self.points:

@@ -2,14 +2,14 @@ import scrollphat
 from pijobs.scrollphatjob import ScrollphatJob
 
 class FlashJob(ScrollphatJob):
-    def run(self):
+    def init(self):
+        super(FlashJob, self).init()
         scrollphat.clear()
-        for i in range(int(self.options['loop'])):
-            scrollphat.set_pixels(lambda x, y: True, True)
-            self.sleep_interval()
-            scrollphat.clear()
-            self.sleep_interval()
-        self.sleep()
+
+    def loop_iteration(self, step):
+        scrollphat.set_pixels(lambda x, y: True, True)
+        self.sleep_interval()
+        scrollphat.clear()
 
     def default_options(self):
         return {

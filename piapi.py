@@ -31,7 +31,7 @@ class Queue(Resource):
         parser.add_argument('brightness', type=int, help='Set brightness level (0-255)')
         parser.add_argument('rotate', type=int, help='Rotate 180 degrees')
         parser.add_argument('sleep', type=float, help='Seconds to sleep after job')
-        parser.add_argument('interval', type=float, help='Seconds to sleep between each iteration')
+        parser.add_argument('interval', type=float, help='Seconds to sleep between each loop iteration')
         parser.add_argument('keep', type=bool, help='Add job to end of queue after run.')
         parser.add_argument('loop', type=int, help='Loop this many iterations in the job.')
         parser.add_argument('upper', type=bool, help='Make all letters in message upper case.')

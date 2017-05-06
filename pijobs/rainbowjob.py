@@ -6,17 +6,18 @@ from pijobs.unicornhatjob import UnicornhatJob
 # https://github.com/pimoroni/unicorn-hat
 
 class RainbowJob(UnicornhatJob):
-    def run(self):
-        i = 0.0
+    def init(self):
+        super(RainbowJob, self).init()
+        self.i = 0.0
         self.offset = 30
-        for loop in range(int(self.options['loop'])):
-            i = i + 0.3
-            for y in range(self.rows):
-                for x in range(self.cols):
-                    r, g, b = self.calculate_color(x, y, i)
-                    unicorn.set_pixel(x, y, r, g, b)
-            unicorn.show()
-            self.sleep_interval()
+
+    def loop_iteration(self, step):
+        self.i = self.i + 0.3
+        for y in range(self.rows):
+            for x in range(self.cols):
+                r, g, b = self.calculate_color(x, y, self.i)
+                unicorn.set_pixel(x, y, r, g, b)
+        unicorn.show()
 
     def calculate_color(self, x, y, i):
         r = 0

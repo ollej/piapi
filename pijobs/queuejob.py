@@ -21,6 +21,20 @@ class QueueJob:
     def run(self):
         pass
 
+    def run(self):
+        self.loop()
+
+    def loop_iterations(self):
+        return self.options['loop']
+
+    def loop(self):
+        for step in range(self.loop_iterations()):
+            self.loop_iteration(step)
+            self.sleep_interval()
+
+    def loop_iteration(self, step):
+        pass
+
     def cleanup(self):
         pass
 
