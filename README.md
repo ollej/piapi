@@ -24,3 +24,24 @@ $ python3
 ```
 $ FLASK_APP=piapi.py python3 -m flask run --host=0.0.0.0
 ```
+
+### Default configuration
+
+Create a file called `.env` with the following options:
+
+```
+MONIT_URL=https://mmonit.example.com
+MONIT_USERNAME=username
+MONIT_PASSWORD=password
+MUSIC_PATH=/home/pi/music
+MUSIC_EXTENSION=.mp3
+```
+
+Requirements
+------------
+
+Install requirements for jobs:
+
+```
+$ sudo apt-get install fortune mpg321
+```
