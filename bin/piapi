@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source /home/pi/piapi/.venv/bin/activate
+cd /home/pi/piapi
+FLASK_APP=piapi.py python3 -m flask run --host=0.0.0.0 &>> /var/log/piapi.log &
