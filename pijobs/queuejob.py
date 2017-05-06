@@ -19,7 +19,10 @@ class QueueJob:
         pass
 
     def run(self):
-        self.sleep()
+        pass
+
+    def cleanup(self):
+        pass
 
     def sleep(self):
         if self.options['sleep'] is not None:
@@ -29,5 +32,3 @@ class QueueJob:
         if self.options['interval'] is not None:
             time.sleep(float(self.options['interval']))
 
-    def cleanup(self):
-        pass

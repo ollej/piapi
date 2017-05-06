@@ -1,6 +1,6 @@
-from pijobs.scrolljob import ScrollJob
 from piutil.fortune import Fortune
+from pijobs.speakjob import SpeakJob
 
-class FortuneJob(ScrollJob):
+class SpeakfortuneJob(SpeakJob):
     def message(self):
         return Fortune().short()
